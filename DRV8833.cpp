@@ -67,10 +67,11 @@ void DCMotor::go()
 
 void DCMotor::stop() 
 {
-  DUMP("DCMotor::stop()");
   digitalWrite(m_pinCW, HIGH);
   digitalWrite(m_pinCCW, HIGH);
   m_bGoing = false;
+  m_speed = 0;
+  DUMP("DCMotor::stop()");
 }
 
 void DCMotor::coast() 
@@ -88,12 +89,13 @@ void DCMotor::coast()
     go();
 }*/
 
-void DCMotor::setSpeed(boolean bCW, byte speed) 
+/** set the speed is in 0...255 and start rotation */
+void DCMotor::setSpeedPWM(boolean bCW, byte speed) 
 {
-  DEBUG_PRINT("DCMotor::setSpeed bCW="); DEBUG_PRINTDEC(bCW);  DEBUG_PRINT(" speed=");  DEBUG_PRINTDEC(speed);  DEBUG_PRINTLN("");
+  DEBUG_PRINT("DCMotor::setSpeedPWM bCW="); DEBUG_PRINTDEC(bCW);  DEBUG_PRINT(" speed=");  DEBUG_PRINTDEC(speed);  DEBUG_PRINTLN("");
   
   m_bDirectionCW = bCW;
-  m_speed = map(speed, 0, 100, 0, 255);
+  m_speed = speed;
   go();
 }
 

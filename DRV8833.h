@@ -23,7 +23,13 @@ public:
   void coast();
    
   /** set the speed is in 0%...100% and start rotation */
-  void setSpeed(boolean bCW, byte speed);
+  void setSpeed(boolean bCW, byte speed)
+  {
+    setSpeedPWM(bCW, map(speed, 0, 100, 0, 255));
+  }
+  /** set the speed is in 0...255 and start rotation */
+  void setSpeedPWM(boolean bCW, byte speed);
+  
   /** are we spinning? */ 
   boolean isGoing() 
   {
