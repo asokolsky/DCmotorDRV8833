@@ -40,13 +40,13 @@ bool ThumbStick::getAndDispatchThumb(unsigned long now)
   // the order is important because of the side effects
   uint16_t x = analogRead(m_pinX);
   uint16_t y = analogRead(m_pinY);
-  if(abs(y - m_y) > 10) // ignore +-10
+  if(abs(y - m_y) > 5) // ignore +-10
   { 
     m_y = y;
     onThumbStickY(getYmapped());
     return true;
   }
-  if(abs(x - m_x) > 10) // ignore +-10
+  if(abs(x - m_x) > 5) // ignore +-10
   { 
     m_x = x;
     onThumbStickX(getXmapped());

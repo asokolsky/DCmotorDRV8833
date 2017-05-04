@@ -20,6 +20,16 @@ private:
   /** Y is between 0 and 1023 */
   uint16_t m_y;
 
+  /** X calibration data */
+  int16_t m_minX = -100;
+  /** X calibration data */
+  int16_t m_zeroX = -9;
+  /** X calibration data */
+  int16_t m_maxX = 99;
+  /** X calibration data */
+  int16_t m_zeroDelta = 4;
+
+
 public:
   /** Just a public constructor */
   ThumbStick(uint8_t pinX, uint8_t pinY, uint8_t pinButton);
@@ -53,8 +63,14 @@ public:
     return m_y;
   }
   /** returns joystick X value -100..+100 */
-  int16_t getXmapped() {
-    return map(m_x, 0, 1023, -100, 100);
+  int16_t getXmapped() 
+  {
+    int16_t x = map(m_x, 0, 1023, -100, 100);
+    if(abs(x - m_zeroX) < m_zeroDelta)
+      return 0;
+    if(x > m_zeroX)
+      return map(x, m_zeroX, m_maxX, 0, 100);
+    return map(x, m_zeroX, m_minX, 0, -100);
   }
   /** returns joystick Y value -100..+100 */
   int16_t getYmapped() {
