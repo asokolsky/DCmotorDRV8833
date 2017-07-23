@@ -12,7 +12,7 @@ class DCMotor
 {
 
 public:
-  /** IN1, IN2 */
+  /** IN1, IN2.  Both should be PWM pins */
   DCMotor(byte pinIn1, byte pinIn2);
 
   /** start rotation at the rate of m_speed in m_bDirectionCW */
@@ -44,8 +44,8 @@ public:
   
    
 private:
-  byte m_pinCW;  // a.k.a. IN1
-  byte m_pinCCW; // a.k.a. IN2
+  byte m_pinCW;  // a.k.a. IN1, PWM capable
+  byte m_pinCCW; // a.k.a. IN2, PWM capable
    
   boolean m_bGoing = false;
   boolean m_bDirectionCW = true;
